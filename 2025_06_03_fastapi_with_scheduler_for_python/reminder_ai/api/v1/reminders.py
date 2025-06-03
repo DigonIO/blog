@@ -1,10 +1,12 @@
 import asyncio
-from fastapi import APIRouter
-from uuid import UUID
-from scheduler.trigger import weekday as weekday_factory
-from fastapi.responses import Response
 import datetime as dt
-from sales_ai.scheduler import Scheduler
+from uuid import UUID
+
+from fastapi import APIRouter
+from fastapi.responses import Response
+from scheduler.trigger import weekday as weekday_factory
+
+from reminder_ai.scheduler import UTC, Scheduler
 
 ROUTE_REMINDERS = "reminders"
 
@@ -39,7 +41,7 @@ async def _(
     user_id: UUID,
     prompt: str,
 ) -> Response:
-    schedule_time = dt.datetime.now() + dt.timedelta(seconds=10)
+    schedule_time = dt.datetime.now(tz=UTC) + dt.timedelta(seconds=10)
     Scheduler.schedule.once(
         schedule_time, fake_remind, kwargs={"user_id": user_id, "prompt": prompt}
     )
@@ -54,7 +56,7 @@ async def _(
     weekday: int,  # 0: Monday, ..., 6: Sunday
     n_weeks: int,
 ) -> Response:
-    schedule_time = weekday_factory(weekday, dt.time(hour=9, minute=0))
+    schedule_time = weekday_factory(weekday, dt.time(hour=9, minute=0, tzinfo=UTC))
     Scheduler.schedule.weekly(
         schedule_time,
         fake_remind,

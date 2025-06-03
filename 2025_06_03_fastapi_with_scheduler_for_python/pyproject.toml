@@ -1,7 +1,7 @@
 [project]
-name = "SalesAI"
+name = "ReminderAI"
 version = "0.1.0"
-description = "A dummy FastAPI app, for scheduling AI generated WhatsApp sales massages."
+description = "A dummy FastAPI app, for scheduling AI generated WhatsApp reminder massages."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

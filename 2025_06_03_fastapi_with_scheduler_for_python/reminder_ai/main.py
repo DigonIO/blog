@@ -1,13 +1,14 @@
-import signal
-from typing import Any, AsyncGenerator
-from contextlib import asynccontextmanager
-import random
-import datetime as dt
 import asyncio
+import datetime as dt
+import random
+import signal
+from contextlib import asynccontextmanager
+from typing import Any, AsyncGenerator
+
 from fastapi import FastAPI
 
-from sales_ai.scheduler import Scheduler
-from sales_ai.api import router_api
+from reminder_ai.api import router_api
+from reminder_ai.scheduler import UTC, Scheduler
 
 
 def stop_scheduler(*args: Any) -> None:
@@ -35,13 +36,13 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
     Scheduler.schedule.cyclic(dt.timedelta(seconds=30), fake_health_check)
     Scheduler.schedule.daily(
-        dt.time(hour=0, minute=0, second=0), fake_reset_daily_token_quota
+        dt.time(hour=0, minute=0, second=0, tzinfo=UTC), fake_reset_daily_token_quota
     )
     yield
 
 
 app = FastAPI(
-    title="Sales AI",
+    title="Reminder AI",
     lifespan=lifespan,
 )
 

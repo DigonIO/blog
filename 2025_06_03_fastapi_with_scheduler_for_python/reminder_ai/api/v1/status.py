@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import Response
-from sales_ai.scheduler import Scheduler
+
+from reminder_ai.scheduler import Scheduler
 
 ROUTE_STATUS = "status"
 router_status = APIRouter(tags=[ROUTE_STATUS])
