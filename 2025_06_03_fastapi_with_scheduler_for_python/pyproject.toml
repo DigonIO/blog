@@ -1,10 +1,11 @@
 [project]
-name = "2025-06-03-fastapi-with-scheduler-for-python"
+name = "SalesAI"
 version = "0.1.0"
-description = "Add your description here"
+description = "A dummy FastAPI app, for scheduling AI generated WhatsApp sales massages."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.115.12",
     "scheduler>=0.8.8",
+    "uvicorn>=0.34.3",
 ]
