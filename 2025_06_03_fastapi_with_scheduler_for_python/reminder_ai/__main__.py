@@ -4,8 +4,8 @@ import uvicorn
 def main() -> None:
     uvicorn.run(
         "reminder_ai.main:app",
-        host="0.0.0.0",
-        port=5002,
+        host="127.0.0.1",
+        port=8000,
         log_level="info",
         reload=True,
     )

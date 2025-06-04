@@ -3,8 +3,9 @@ import datetime as dt
 from uuid import UUID
 
 from fastapi import APIRouter
-from fastapi.responses import Response
+from fastapi.responses import PlainTextResponse
 from scheduler.trigger import weekday as weekday_factory
+from pydantic import BaseModel
 
 from reminder_ai.scheduler import UTC, Scheduler
 
@@ -35,32 +36,38 @@ async def fake_remind(
             raise ValueError("Exactly one of user_id or group_id is required.")
 
 
+class V1RemindersUsers_Post_Body(BaseModel):
+    prompt: str
+    schedule_time: dt.datetime | None = None  # None means now
+
+
 @router_reminders.post("/users/{user_id}")
-async def _(
-    *,
-    user_id: UUID,
-    prompt: str,
-) -> Response:
-    schedule_time = dt.datetime.now(tz=UTC) + dt.timedelta(seconds=10)
+async def _(*, user_id: UUID, body: V1RemindersUsers_Post_Body) -> PlainTextResponse:
     Scheduler.schedule.once(
-        schedule_time, fake_remind, kwargs={"user_id": user_id, "prompt": prompt}
+        body.schedule_time or dt.timedelta(),
+        fake_remind,
+        kwargs={"user_id": user_id, "prompt": body.prompt},
     )
-    return Response(content="OK")
+    return PlainTextResponse(content="OK")
+
+
+class V1RemindersGroups_Post_Body(BaseModel):
+    prompt: str
+    weekday: int  # 0: Monday, ..., 6: Sunday
+    n_weeks: int
 
 
 @router_reminders.post("/groups/{group_id}")
 async def _(
     *,
     group_id: UUID,
-    prompt: str,
-    weekday: int,  # 0: Monday, ..., 6: Sunday
-    n_weeks: int,
-) -> Response:
-    schedule_time = weekday_factory(weekday, dt.time(hour=9, minute=0, tzinfo=UTC))
+    body: V1RemindersGroups_Post_Body,
+) -> PlainTextResponse:
+    day_and_time = weekday_factory(body.weekday, dt.time(hour=9, minute=0, tzinfo=UTC))
     Scheduler.schedule.weekly(
-        schedule_time,
+        day_and_time,
         fake_remind,
-        kwargs={"group_id": group_id, "prompt": prompt},
-        max_attempts=n_weeks,
+        kwargs={"group_id": group_id, "prompt": body.prompt},
+        max_attempts=body.n_weeks,
     )
-    return Response(content="OK")
+    return PlainTextResponse(content="OK")
