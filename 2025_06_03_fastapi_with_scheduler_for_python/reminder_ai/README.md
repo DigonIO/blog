@@ -6,13 +6,12 @@ This is the accompanying code for the blog post on integrating the scheduler lib
 
 [Read the full blog post here](https://digon.io/en/blog/2025_06_05_async_job_scheduling_with_fastapi)
 
-
 ---
 
 <br>
 <div align="center">
   <a href="https://digon.io">
-    <img alt="Digon.IO GmbH - Fine-Tuned AI services for developers" src="../assets/digon_name_right_grey.svg" width="35%">
+    <img alt="Digon.IO GmbH - Fine-Tuned AI services for developers" src="../../assets/digon_name_right_grey.svg" width="35%">
   </a>
 </div>
 <br>
