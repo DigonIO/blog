@@ -1,0 +1,18 @@
+[project]
+name = "restapipy"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Jendrik Potyka", email = "jpotyka@digon.io" },
+    { name = "Fabian Preiss", email = "fpreiss@digon.io" },
+]
+requires-python = ">=3.13"
+dependencies = ["fastapi>=0.116.1", "uvicorn>=0.35.0"]
+
+[project.scripts]
+generate_openapi_json = "restapipy.main:generate_openapi_json"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
