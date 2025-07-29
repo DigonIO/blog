@@ -4,8 +4,8 @@ This repository contains the accompanying code for our [technical blog](https://
 
 | Date| Blog Post | Code |
 | --- | --- | --- |
-| 2025-07-28 | [Build Multistage Python Docker Images Using UV](https://digon.io/en/blog/2025_07_28_python_docker_images_with_uv) | [code](./2025_07_28_python_docker_images_with_uv) |
-| 2025-06-05 | [FastAPI + scheduler = background tasks](https://digon.io/en/blog/2025_06_05_async_job_scheduling_with_fastapi) | [code](./2025_06_03_fastapi_with_scheduler_for_python) |
+| 2025-07-28 | [Build Multistage Python Docker Images Using UV](https://digon.io/en/blog/2025_07_28_python_docker_images_with_uv) | [code](./2025_07_28_python_docker_images_with_uv/restapipy) |
+| 2025-06-05 | [FastAPI + scheduler = background tasks](https://digon.io/en/blog/2025_06_05_async_job_scheduling_with_fastapi) | [code](./2025_06_03_fastapi_with_scheduler_for_python/reminder_ai) |
 | 2025-05-26 | [Hello world from astro](https://digon.io/en/blog/2025_05_26_hello_world_astro) | N/A |
 
 ---
